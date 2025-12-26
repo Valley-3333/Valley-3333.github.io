@@ -1,0 +1,264 @@
+/* --- 全体のトーン調整：安心感のあるクリーンな配色 --- */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --sub-text: #666666;
+    --accent-color: #1a365d; /* 深い紺色 */
+    --border-color: #eaeaea;
+    --steam-color: #1b2838;  /* Steamのブランドカラー */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.8;
+}
+
+.wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* --- ヘッダー --- */
+header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--sub-text);
+    margin-bottom: 30px;
+}
+
+.social-links a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: var(--accent-color);
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-bottom: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    border-bottom: 1px solid var(--accent-color);
+}
+
+/* --- セクション・共通テキスト --- */
+section {
+    margin-bottom: 60px;
+}
+
+h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 15px;
+    margin-bottom: 25px;
+}
+
+p {
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+p em {
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+/* --- Modリスト（行末ボタン配置） --- */
+.mod-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.mod-item {
+    display: flex;
+    justify-content: space-between; /* テキストとボタンを両端に */
+    align-items: center;           /* 垂直方向中央揃え */
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.mod-item:last-child {
+    border-bottom: none;
+}
+
+.mod-info {
+    flex: 1; /* ボタンを右端に押し出す */
+    margin-right: 15px;
+}
+
+.github-link {
+    font-weight: bold;
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.github-link:hover {
+    text-decoration: underline;
+}
+
+.mod-desc {
+    color: var(--sub-text);
+    font-size: 0.9rem;
+    margin-left: 5px;
+}
+
+/* --- ボタン（基本 & Steam） --- */
+.btn-container {
+    margin-top: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: opacity 0.3s;
+}
+
+.btn-steam-small {
+    display: inline-block;
+    background-color: var(--steam-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: opacity 0.3s;
+}
+
+.btn:hover, .btn-steam-small:hover {
+    opacity: 0.8;
+}
+
+/* --- フッター --- */
+footer {
+    text-align: center;
+    margin-top: 100px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    color: #999;
+    font-size: 0.8rem;
+}
+
+/* --- スマホ対応（画面が狭いときは縦並び） --- */
+@media (max-width: 600px) {
+    .mod-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .btn-steam-small {
+        margin-top: 10px;
+    }
+}
+
+/* --- ヘッダーのアイコン --- */
+.profile-icon-container {
+    margin-bottom: 25px; /* 名前との間隔 */
+}
+
+.profile-icon {
+    width: 130px;  /* アイコンの幅 */
+    height: 130px; /* アイコンの高さ */
+    border-radius: 50%; /* 完全に丸くする */
+    object-fit: cover;  /* 画像が歪まないようにトリミング */
+    border: 5px solid white; /* 白い太枠をつけて清潔感を出す */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* 柔らかい影で立体感を出す */
+}
+
+/* --- スキル・言語セクション --- */
+.skills-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 左右に並べる */
+    gap: 30px;
+}
+
+.skill-group {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.skill-group h3 {
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.skill-subgroup {
+    margin-bottom: 15px;
+}
+
+.skill-subgroup:last-child {
+    margin-bottom: 0;
+}
+
+.level-label {
+    font-size: 0.8rem;
+    color: var(--sub-text);
+    margin-bottom: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* タグの基本デザイン */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* 慣れているもの：濃い色 */
+.tag-main {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+/* 学習中のもの：薄い色・枠線 */
+.tag-sub {
+    background-color: #f0f4f8;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
+
+/* スマホ対応：縦並びに切り替え */
+@media (max-width: 650px) {
+    .skills-container {
+        grid-template-columns: 1fr;
+    }
+}
