@@ -262,3 +262,37 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+
+.site-nav {
+    margin-bottom: 40px;
+}
+
+.site-nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.site-nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 1rem;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+    opacity: 0.7;
+}
+
+.site-nav a:hover, .site-nav a.active {
+    opacity: 1;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+/* ヘッダー内の調整 */
+header {
+    position: relative;
+}
