@@ -57,7 +57,7 @@
             { id: 7, image: 'images/neko.png', title: 'ねこ', description: '名前がちゃんと書いてありますね。' },
             { id: 8, image: 'images/wani.png', title: 'わに', description: 'わにだ。歯がギザギザで痛そう。' },
             { id: 9, image: 'images/ika.png', title: 'いか', description: 'いかすみを出す。50円らしい。' },
-            { id: 10, image: 'images/hirame.png', title: 'ひらめ`', description: '目が×になっている。焼かれちゃったのかな？' },
+            { id: 10, image: 'images/hirame.png', title: 'ひらめ', description: '目が×になっている。焼かれちゃったのかな？' },
             { id: 11, image: 'images/hito.png', title: 'ひと', description: 'かわいらしい。特におてて。' },
             { id: 12, image: 'images/denkikurage.png', title: 'でんきくらげ', description: 'でんきを出している。びりびりしそう。' },
             { id: 13, image: 'images/hitode.jpg', title: 'ひとで', description: 'ひとで。友達が多い。' },
@@ -99,7 +99,7 @@
                     card.innerHTML = `
                         <div class="gallery-image-container">
                             <img src="${item.image}" alt="${item.title}" class="gallery-image">
-                            <button class="toggle-info-btn" onclick="toggleInfo(${item.id})" title="説明を表示/非表示">
+                            <button class="toggle-info-btn" onclick="toggleInfo(event, ${item.id})" title="説明を表示/非表示">
                                 <i class="fas fa-chevron-down"></i>
                             </button>
                         </div>
@@ -117,20 +117,17 @@
         
         // ウィンドウ幅に応じて列数を決定
         function getColumnCount() {
-            if (window.innerWidth <= 600) {
-                return 2;
-            }
-            return 3;
+            return 2;
         }
 
         // 説明のトグル機能
-        function toggleInfo(id) {
+        function toggleInfo(event, id) {
             const infoElement = document.getElementById(`info-${id}`);
             if (infoElement) {
                 infoElement.classList.toggle('active');
                 
                 // ボタンの状態を視覚的に変更
-                const button = event.target.closest('.toggle-info-btn');
+                const button = event.currentTarget;
                 if (button) {
                     button.classList.toggle('active');
                 }
