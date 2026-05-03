@@ -299,10 +299,16 @@ header {
 
 /* --- ギャラリー --- */
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    display: flex;
     gap: 20px;
     margin-top: 30px;
+}
+
+.gallery-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .gallery-card {
@@ -365,10 +371,19 @@ header {
 }
 
 .gallery-info {
-    padding: 15px;
+    padding: 0 15px;
     background: white;
     border-top: 1px solid var(--border-color);
-    animation: slideDown 0.3s ease-out;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.gallery-info.active {
+    max-height: 500px;
+    opacity: 1;
+    padding: 15px 15px;
 }
 
 .gallery-info h3 {
@@ -384,21 +399,13 @@ header {
     line-height: 1.6;
 }
 
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        max-height: 0;
-    }
-    to {
-        opacity: 1;
-        max-height: 500px;
-    }
-}
-
 /* スマホ対応：グリッドを調整 */
 @media (max-width: 600px) {
     .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .gallery-column {
+        flex: 0 0 calc(50% - 10px);
     }
 }

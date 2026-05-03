@@ -54,19 +54,25 @@
             { id: 4, image: 'images/sakana.jpg', title: 'さかな', description: '海の魚を写実的に描きました。海にはよくいた覚えがあり、とても楽しかった思い出です。特にガシャポン。' },
             { id: 5, image: 'images/tateana.jpg', title: 'たてあなしきじゅうきょ', description: '地面に埋まっているのは竪穴式住居' },
             { id: 6, image: 'images/kame.png', title: 'かめ', description: 'かめだ。かわいいね。' },
-            { id: 7, image: 'images/valley_icon.png', title: '作品 7', description: '説明を入力してください。' },
-            { id: 8, image: 'images/valley_icon.png', title: '作品 8', description: '説明を入力してください。' },
-            { id: 9, image: 'images/valley_icon.png', title: '作品 9', description: '説明を入力してください。' },
-            { id: 10, image: 'images/valley_icon.png', title: '作品 10', description: '説明を入力してください。' },
-            { id: 11, image: 'images/valley_icon.png', title: '作品 11', description: '説明を入力してください。' },
-            { id: 12, image: 'images/valley_icon.png', title: '作品 12', description: '説明を入力してください。' },
-            { id: 13, image: 'images/valley_icon.png', title: '作品 13', description: '説明を入力してください。' },
-            { id: 14, image: 'images/valley_icon.png', title: '作品 14', description: '説明を入力してください。' },
-            { id: 15, image: 'images/valley_icon.png', title: '作品 15', description: '説明を入力してください。' },
-            { id: 16, image: 'images/valley_icon.png', title: '作品 16', description: '説明を入力してください。' },
-            { id: 17, image: 'images/valley_icon.png', title: '作品 17', description: '説明を入力してください。' },
-            { id: 18, image: 'images/valley_icon.png', title: '作品 18', description: '説明を入力してください。' },
-            { id: 19, image: 'images/valley_icon.png', title: '作品 19', description: '説明を入力してください。' }
+            { id: 7, image: 'images/neko.png', title: 'ねこ', description: '名前がちゃんと書いてありますね。' },
+            { id: 8, image: 'images/wani.png', title: 'わに', description: 'わにだ。歯がギザギザで痛そう。' },
+            { id: 9, image: 'images/ika.png', title: 'いか', description: 'いかすみを出す。50円らしい。' },
+            { id: 10, image: 'images/hirame.png', title: 'ひらめ`', description: '目が×になっている。焼かれちゃったのかな？' },
+            { id: 11, image: 'images/hito.png', title: 'ひと', description: 'かわいらしい。特におてて。' },
+            { id: 12, image: 'images/denkikurage.png', title: 'でんきくらげ', description: 'でんきを出している。びりびりしそう。' },
+            { id: 13, image: 'images/hitode.jpg', title: 'ひとで', description: 'ひとで。友達が多い。' },
+            { id: 14, image: 'images/MEGA_hitode.jpg', title: 'MEGAひとで', description: 'ひとでが進化してMEGAになった姿。最近このスタイルが流行っているらしい。' },
+            { id: 15, image: 'images/hebi.png', title: 'へび', description: 'へびです。足が生えています。' },
+            { id: 16, image: 'images/suputoniku.png', title: 'すぷーとにくくん', description: '衛星の子。宇宙に行くのを怖がっているが、ずっと博物館に展示されている。' },
+            { id: 17, image: 'images/mikan.png', title: 'みかん', description: 'みかんです。ほっぺがピンクだね。' },
+            { id: 18, image: 'images/saikusu-piko.png', title: 'サイクスピコピコハンマー中東分割案', description: '第一次世界大戦における終戦時の中東分割案におけるイラクシリアの境界線がピコピコハンマーの形状に類似している点に着目した。' },
+            { id: 19, image: 'images/banana.png', title: 'ばなな', description: 'そらに浮かんでいる。実は甘い。' },
+            { id: 20, image: 'images/banana-max.png', title: 'ばなな(本気)', description: '本気のバナナ。少し明るい性格になっているが、熟しすぎていて食べづらい。' },
+            { id: 21, image: 'images/gyorai.png', title: 'ぎょらい', description: 'ぎょらいです。さかなにプロペラが付いていて素早く泳げます。' },
+            { id: 22, image: 'images/illura_de_usagi.jpg', title: 'イラレで描いた謎ウサギ', description: 'どなたですか？' },
+            { id: 23, image: 'images/africa.png', title: 'アフリカ', description: 'サバンナの風景、キリンやライオンが戯れている。口からビームも出す。' },
+            { id: 24, image: 'images/zousan.png', title: 'ぞうさん', description: '鼻に蛇口がついている。' },
+            { id: 25, image: 'images/ei.png', title: 'えい', description: 'えいだね。アンテナが付いているよ。' },
         ];
 
         // ギャラリーを初期化
@@ -74,31 +80,54 @@
             const gallery = document.getElementById('galleryGrid');
             gallery.innerHTML = '';
             
-            galleryData.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'gallery-card';
-                card.innerHTML = `
-                    <div class="gallery-image-container">
-                        <img src="${item.image}" alt="${item.title}" class="gallery-image">
-                        <button class="toggle-info-btn" onclick="toggleInfo(${item.id})" title="説明を表示/非表示">
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                    </div>
-                    <div class="gallery-info" id="info-${item.id}" style="display: none;">
-                        <h3>${item.title}</h3>
-                        <p>${item.description}</p>
-                    </div>
-                `;
-                gallery.appendChild(card);
+            const columnCount = getColumnCount();
+            const columns = Array.from({ length: columnCount }, () => []);
+            
+            // カードを列に分配（左→右に配置）
+            galleryData.forEach((item, index) => {
+                columns[index % columnCount].push(item);
             });
+            
+            // 各列を生成
+            columns.forEach(colItems => {
+                const colDiv = document.createElement('div');
+                colDiv.className = 'gallery-column';
+                
+                colItems.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'gallery-card';
+                    card.innerHTML = `
+                        <div class="gallery-image-container">
+                            <img src="${item.image}" alt="${item.title}" class="gallery-image">
+                            <button class="toggle-info-btn" onclick="toggleInfo(${item.id})" title="説明を表示/非表示">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="gallery-info" id="info-${item.id}">
+                            <h3>${item.title}</h3>
+                            <p>${item.description}</p>
+                        </div>
+                    `;
+                    colDiv.appendChild(card);
+                });
+                
+                gallery.appendChild(colDiv);
+            });
+        }
+        
+        // ウィンドウ幅に応じて列数を決定
+        function getColumnCount() {
+            if (window.innerWidth <= 600) {
+                return 2;
+            }
+            return 3;
         }
 
         // 説明のトグル機能
         function toggleInfo(id) {
             const infoElement = document.getElementById(`info-${id}`);
             if (infoElement) {
-                const isHidden = infoElement.style.display === 'none';
-                infoElement.style.display = isHidden ? 'block' : 'none';
+                infoElement.classList.toggle('active');
                 
                 // ボタンの状態を視覚的に変更
                 const button = event.target.closest('.toggle-info-btn');
@@ -110,6 +139,9 @@
 
         // ページ読み込み時に初期化
         document.addEventListener('DOMContentLoaded', initGallery);
+        
+        // ウィンドウリサイズ時に再初期化（列数が変わる場合）
+        window.addEventListener('resize', initGallery);
     </script>
 </body>
 </html>
