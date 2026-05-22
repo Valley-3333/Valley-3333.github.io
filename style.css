@@ -420,3 +420,66 @@ header {
         flex: 1 1 auto;
     }
 }
+
+/* --- GitHubアナリティクスセクション --- */
+.github-analytics-section {
+    margin-bottom: 60px;
+}
+
+/* カードを綺麗に並べるグリッド配置 */
+.analytics-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+/* 各カードを包むラッパー（サイトのギャラリーカード風の影と丸みを適用） */
+.analytics-card-wrapper {
+    background: #1a365d; /* バッジの背景色に合わせる */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.analytics-card-wrapper:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* 通常カードのサイズ固定（横長カード用） */
+.analytics-card-wrapper img {
+    height: 150px;
+    width: auto;
+    display: block;
+}
+
+/* ドーナツ型円グラフカードだけは縦幅が少し広いので高さを微調整 */
+.analytics-card-wrapper.donut-layout img {
+    height: 180px;
+}
+
+/* --- スマホ対応：画面が狭いときは縦にスッキリ1枚ずつ並べる --- */
+@media (max-width: 650px) {
+    .analytics-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .analytics-card-wrapper, 
+    .analytics-card-wrapper.donut-layout {
+        width: 100%;
+        max-width: 400px; /* スマホで大きくなりすぎないように制限 */
+    }
+    
+    .analytics-card-wrapper img,
+    .analytics-card-wrapper.donut-layout img {
+        width: 100%;
+        height: auto; /* スマホでは横幅いっぱいに自動縮小 */
+    }
+}
