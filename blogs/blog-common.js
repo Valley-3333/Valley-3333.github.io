@@ -12,9 +12,9 @@
 // ---------------------------------------------------------------------------
 const GISCUS_CONFIG = {
     repo:               'Valley-3333/Valley-3333.github.io',  // ← あなたのリポジトリ
-    repoId:             'YOUR_REPO_ID',                        // ← giscus.app で取得
-    category:           'Blog Comments',                       // ← Discussions のカテゴリ名
-    categoryId:         'YOUR_CATEGORY_ID',                    // ← giscus.app で取得
+    repoId:             'R_kgDONuReyA',                        // ← giscus.app で取得
+    category:           'Announcements',                       // ← Discussions のカテゴリ名
+    categoryId:         'DIC_kwDONuReyM4C9wEP',                // ← giscus.app で取得
     mapping:            'pathname',                            // URL パスで紐付け
     reactionsEnabled:   '1',
     emitMetadata:       '0',
