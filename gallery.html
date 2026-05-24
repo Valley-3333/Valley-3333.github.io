@@ -25,6 +25,7 @@
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="other.html">Other</a></li>
+                        <li><a href="blog.html">Blog</a></li>
                         <li><a href="links.html">Links</a></li>
                         <li><a href="gallery.html">Gallery</a></li>
                     </ul>
@@ -119,7 +120,22 @@
         
         // ウィンドウ幅に応じて列数を決定
         function getColumnCount() {
-            return 2;
+            //return 2;
+            const width = window.innerWidth;
+    
+            if (width < 600) {
+                return 1;  // 📱 スマホ：1列
+            } else if (width < 950) {
+                return 2;  // 📐 タブレット：2列
+            } else if (width < 1400) {
+                return 3;  // 💻 一般的なPC：3列
+            } else if (width < 1920) {
+                return 4;  // 🖥 フルHDクラスの大画面：4列
+            } else if (width < 2560) {
+                return 5;  // 🌟 WQHDなどの超大画面：5列
+            } else {
+                return 6;  // 🚀 4K以上のモンスター画面：6列
+            }
         }
 
         // 説明のトグル機能

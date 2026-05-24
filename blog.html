@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valley | Online Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" href="images/valley_icon.png" type="image/x-icon">
+    <meta property="og:title" content="Valleyのぺーじ">
+    <meta property="og:description" content="HoI4 ModderのValleyです。こんにちは。こんばんわ。">
+    <meta property="og:image" content="images/valley_icon.png">
+    <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+    <div class="wrapper">
+        <header>
+            <div class="header-inner">
+                <nav class="site-nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="other.html">Other</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="links.html">Links</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section class="bio-section">
+                <h2>Blogs</h2>
+                <p>たくさんなんか文字書いていこう！！！！！！</p>
+                <div class="blog-grid" id="blogGrid">
+                <!-- ブログアイテムはここに動的に生成されます -->
+                </div>
+                    
+            </section>
+
+        </main>
+
+        <footer>
+            <p>&copy; BC240 ... 1910, 1986, 2061 Valley. Verified Profile.</p>
+        </footer>
+    </div>
+
+    <script>
+    // ブログデータ
+    const blogData = [
+        { id: 1, title: '私こんにちは、世界', date: '2026-5-25', excerpt: 'はじめての、とうこう', category: '日記', url: 'blogs/blog1.html' },
+        { id: 2, title: '2', date: '20XX-XX-XX', excerpt: '2222', category: '日常', url: 'blogs/blog2.html' },
+        { id: 3, title: '3', date: '20XX-XX-XX', excerpt: '3333', category: '本', url: 'blogs/blog3.html' },
+        { id: 4, title: '4', date: '20XX-XX-XX', excerpt: '4444', category: '日常', url: 'blogs/blog4.html' },
+        { id: 5, title: '5', date: '20XX-XX-XX', excerpt: '5555', category: '日常', url: 'blogs/blog5.html' },
+        { id: 6, title: '6', date: '20XX-XX-XX', excerpt: '6666', category: '日常', url: 'blogs/blog6.html' },
+        { id: 7, title: '7', date: '20XX-XX-XX', excerpt: '7777', category: '日常', url: 'blogs/blog7.html' },
+        { id: 8, title: '8', date: '20XX-XX-XX', excerpt: '8888', category: '日常', url: 'blogs/blog8.html' },
+        { id: 9, title: '9', date: '20XX-XX-XX', excerpt: '9999', category: '日常', url: 'blogs/blog9.html' },
+        { id: 10, title: '10', date: '20XX-XX-XX', excerpt: '10101010', category: '日常', url: 'blogs/blog10.html' }
+    ];
+
+    // ブログを初期化
+    function initBlogs() {
+        // HTML側の親要素のクラス名（.gallery-grid）に合わせるか、ID名に合わせる
+        const blogGrid = document.getElementById('blogGrid');
+        if (!blogGrid) return;
+        blogGrid.innerHTML = '';
+
+        const columnCount = getColumnCount();
+        // 列の数だけ空の配列（グループ）を用意
+        const columns = Array.from({ length: columnCount }, () => []);
+
+        // ① データを各列に分配（左→右に配置）
+        blogData.forEach((item, index) => {
+            columns[index % columnCount].push(item);
+        });
+
+        // ② 分配された列ごとにHTMLを生成して配置していく
+        columns.forEach(colItems => {
+            // 列の土台を作る
+            const colDiv = document.createElement('div');
+            colDiv.className = 'blog-column'; // CSSの .gallery-column に相当するもの
+            
+            // その列の中に入れる記事カードを作っていく
+            colItems.forEach(post => {
+                const blogItem = document.createElement('div');
+                blogItem.className = 'blog-card'; // CSSの .gallery-card に相当
+                blogItem.innerHTML = `
+                    <div class="blog-content">
+                        <span class="blog-category">${post.category}</span>
+                        <h3>${post.title}</h3>
+                        <p class="blog-date">${post.date}</p>
+                        <p>${post.excerpt}</p>
+                        <a href="${post.url}" class="read-more-btn">
+                            記事を読む <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                `;
+                colDiv.appendChild(blogItem);
+            });
+            
+            // 親グリッドに列ごと追加
+            blogGrid.appendChild(colDiv);
+        });
+    }
+
+    // ウィンドウ幅に応じて列数を決定（4K対応版）
+    function getColumnCount() {
+        const width = window.innerWidth;
+
+        if (width < 600) {
+            return 1;  // 📱 スマホ：1列
+        } else if (width < 950) {
+            return 2;  // 📐 タブレット：2列
+        } else {
+            return 3;  // 🖥 デスクトップ：3列
+        }
+    }
+
+    // 使わなくなった旧toggleInfo関数は綺麗に削除しました
+
+    // ページ読み込み時とリサイズ時に実行
+    document.addEventListener('DOMContentLoaded', initBlogs);
+    window.addEventListener('resize', initBlogs);
+</script>
+
+</body>
+</html>
+
