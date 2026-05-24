@@ -628,6 +628,9 @@ header {
     
     .nav-site-btn.next-site .nav-site-text {
         order: -1;                 /* 矢印を右端にキープするための並び替え */
+
+    }
+}
 /* --- GitHubアナリティクスセクション --- */
 .github-analytics-section {
     margin-bottom: 60px;
