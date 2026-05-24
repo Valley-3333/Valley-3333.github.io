@@ -703,3 +703,234 @@ header {
         box-sizing: border-box; /* 画像のborderによるはみ出しも防ぐ */
     }
 }
+
+/* =============================================================================
+   ブログ記事アクション（グッドボタン / X共有 / コメント）
+   ============================================================================= */
+
+/* --- アクションボタンの並び --- */
+.blog-actions-wrapper {
+    margin: 50px 0 10px 0;
+}
+
+.blog-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* --- ボタン共通 --- */
+.blog-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    background: white;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.blog-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.blog-action-btn:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* --- グッドボタン --- */
+.good-btn {
+    border-color: #d0d7e3;
+}
+
+.good-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.good-btn-label {
+    letter-spacing: 0.02em;
+}
+
+.good-btn-count {
+    background: #f0f4f8;
+    color: var(--accent-color);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    min-width: 20px;
+    text-align: center;
+    transition: all 0.25s ease;
+}
+
+/* いいね済み状態 */
+.good-btn--active {
+    background: var(--accent-color);
+    color: #ffffff;
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 14px rgba(26, 54, 93, 0.3);
+}
+
+.good-btn--active .good-btn-icon {
+    animation: good-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.good-btn--active .good-btn-count {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+.good-btn--active:hover {
+    background: #15294d;
+    box-shadow: 0 6px 20px rgba(26, 54, 93, 0.35);
+}
+
+/* いいねアイコン ポップアニメーション */
+@keyframes good-pop {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.4) rotate(-8deg); }
+    60%  { transform: scale(0.9) rotate(4deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* いいねパーティクル */
+.good-particle {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    animation: particle-burst 0.6s ease-out forwards;
+}
+
+@keyframes particle-burst {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(0);
+    }
+}
+
+/* --- X 共有ボタン --- */
+.share-x-btn {
+    background: #0f1419;
+    color: #ffffff;
+    border-color: #0f1419;
+}
+
+.share-x-btn i {
+    font-size: 1rem;
+}
+
+.share-x-btn:hover {
+    background: #272c31;
+    border-color: #272c31;
+    box-shadow: 0 4px 16px rgba(15, 20, 25, 0.25);
+}
+
+/* --- コメントセクション --- */
+.blog-comments {
+    margin-top: 50px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-color);
+}
+
+.blog-comments-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.blog-comments-title i {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+}
+
+/* Giscus 未設定時のプレースホルダー */
+.giscus-placeholder {
+    background: #f8f9fb;
+    border: 1px dashed #cfd8e3;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    color: var(--sub-text);
+}
+
+.giscus-placeholder i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.giscus-placeholder p {
+    font-size: 0.9rem;
+    margin: 10px 0;
+}
+
+.giscus-placeholder code {
+    background: #e8ecf1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.giscus-placeholder a {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--accent-color);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.giscus-placeholder a:hover {
+    border-bottom-color: var(--accent-color);
+}
+
+/* --- スマホ対応 --- */
+@media (max-width: 600px) {
+    .blog-actions {
+        gap: 10px;
+    }
+
+    .blog-action-btn {
+        padding: 9px 16px;
+        font-size: 0.85rem;
+    }
+
+    .blog-comments {
+        margin-top: 35px;
+        padding-top: 30px;
+    }
+
+    .giscus-placeholder {
+        padding: 20px 15px;
+    }
+}
