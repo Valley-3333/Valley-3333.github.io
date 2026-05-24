@@ -676,20 +676,30 @@ header {
 
 /* --- スマホ対応：画面が狭いときは縦にスッキリ1枚ずつ並べる --- */
 @media (max-width: 650px) {
+    /* 1. 親要素：縦並びにしつつ、万が一横並びになっても折り返せるように保険をかける */
     .analytics-grid {
+        display: flex;
         flex-direction: column;
         align-items: center;
+        flex-wrap: wrap; /* 👈 はみ出し防止のセーフティネット */
+        width: 100%;
+        overflow: hidden; /* 👈 親の段階で画面外へのはみ出しを物理的にカット */
     }
     
-    .analytics-card-wrapper, 
-    .analytics-card-wrapper.donut-layout {
+    /* 2. 子要素（カード）：ここが一番重要！ */
+    .analytics-card-wrapper {
         width: 100%;
-        max-width: 400px; /* スマホで大きくなりすぎないように制限 */
+        max-width: 300px; /* 元々のサイズ制限を活かす場合 */
+        
+        /* 👇 これを追加！ paddingやborderを横幅の計算に含め、はみ出しを絶対阻止する */
+        box-sizing: border-box; 
     }
     
-    .analytics-card-wrapper img,
-    .analytics-card-wrapper.donut-layout img {
+    /* 3. 中の画像 */
+    .analytics-card-wrapper img {
         width: 100%;
-        height: auto; /* スマホでは横幅いっぱいに自動縮小 */
+        height: auto;
+        display: block;
+        box-sizing: border-box; /* 画像のborderによるはみ出しも防ぐ */
     }
 }
