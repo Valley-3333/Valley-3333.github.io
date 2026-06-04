@@ -934,3 +934,91 @@ header {
         padding: 20px 15px;
     }
 }
+
+/* =============================================================================
+   ブログ記事内 画像表示クラス
+   ============================================================================= */
+
+/* --- 基本：記事内のimg要素に共通で適用 --- */
+.blog-img {
+    display: block;
+    max-width: 100%;           /* 親要素をはみ出さない */
+    height: auto;              /* 縦横比を保つ */
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    margin: 20px auto;         /* 上下の余白 + 中央揃え */
+}
+
+/* --- 幅バリエーション --- */
+
+/* 全幅（デフォルトと同じ） */
+.blog-img--full {
+    width: 100%;
+}
+
+/* 幅を少し抑えた中サイズ（HOI4スクリーンショットなどに最適） */
+.blog-img--medium {
+    max-width: 540px;
+    width: 100%;
+}
+
+/* 小サイズ（アイコン・サムネイル用） */
+.blog-img--small {
+    max-width: 300px;
+    width: 100%;
+}
+
+/* --- キャプション付き画像（figureで包んで使う） --- */
+
+/*
+  使い方:
+  <figure class="blog-figure">
+    <img class="blog-img" src="..." alt="...">
+    <figcaption>ここにキャプションを書く</figcaption>
+  </figure>
+*/
+.blog-figure {
+    margin: 28px auto;
+    text-align: center;
+    max-width: 100%;
+}
+
+.blog-figure .blog-img {
+    margin-bottom: 10px;   /* キャプションとの間隔 */
+}
+
+.blog-figure figcaption {
+    font-size: 0.82rem;
+    color: var(--sub-text);
+    line-height: 1.6;
+}
+
+/* --- 横並び比較レイアウト（2枚並べたいときに使う） --- */
+
+/*
+  使い方:
+  <div class="blog-img-row">
+    <img class="blog-img" src="..." alt="...">
+    <img class="blog-img" src="..." alt="...">
+  </div>
+*/
+.blog-img-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;           /* スマホでは自動的に縦積みになる */
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.blog-img-row .blog-img {
+    flex: 1 1 200px;           /* 最小200pxで均等拡大 */
+    margin: 0;                 /* rowのgapに任せる */
+    max-width: calc(50% - 8px);
+}
+
+/* --- スマホ対応 --- */
+@media (max-width: 600px) {
+    .blog-img-row .blog-img {
+        max-width: 100%;       /* スマホでは1列にする */
+    }
+}
