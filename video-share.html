@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>動画共有URL作成ツール（自分用）</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" href="images/valley_icon.png" type="image/x-icon">
+    <style>
+        .tool-wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        .tool-header {
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .tool-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+        }
+
+        .tool-header p {
+            color: var(--sub-text);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .form-group .hint {
+            font-size: 0.82rem;
+            color: var(--sub-text);
+            margin-top: 4px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        .drop-zone {
+            border: 2px dashed #cbd5e1;
+            border-radius: 10px;
+            padding: 26px 20px;
+            text-align: center;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 20px;
+        }
+
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: var(--accent-color);
+            background: #f1f5f9;
+        }
+
+        .drop-zone i {
+            font-size: 2rem;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .drop-zone p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--sub-text);
+        }
+
+        .result-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .result-url {
+            font-family: monospace;
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            padding: 10px 14px;
+            border-radius: 6px;
+            word-break: break-all;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .copy-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #0f172a;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+            font-size: 0.9rem;
+            display: none;
+            z-index: 1000;
+        }
+
+        .preview-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .preview-container video {
+            width: 100%;
+            border-radius: 8px;
+            background: #000;
+            max-height: 380px;
+        }
+
+        .step-list {
+            padding-left: 20px;
+            margin: 0;
+            color: var(--text-color);
+            font-size: 0.92rem;
+            line-height: 1.8;
+        }
+
+        .step-list code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tool-wrapper">
+        <div class="tool-header">
+            <h1>動画共有URL作成ツール</h1>
+            <p>特定の相手に送るための動画URLを簡単に作成・コピーできます。</p>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-top:0; font-size:1.15rem; border-left: 4px solid var(--accent-color); padding-left: 10px;">URL作成</h2>
+
+            <!-- ドロップゾーン（任意） -->
+            <div class="drop-zone" id="dropZone">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <p><strong>動画ファイルをここにドラッグ＆ドロップ</strong>すると自動でファイル名が入り、プレビュー確認できます</p>
+                <input type="file" id="filePicker" accept="video/*" style="display:none;">
+            </div>
+
+            <div class="form-group">
+                <label for="fileNameInput">動画ファイル名 <span style="color:#e11d48;">*</span></label>
+                <input type="text" id="fileNameInput" class="form-input" placeholder="例: clip01.mp4">
+                <div class="hint">※ このリポジトリの <code>videos/</code> フォルダに保存するファイル名を入力してください。</div>
+            </div>
+
+            <div class="form-group">
+                <label for="titleInput">動画タイトル（任意）</label>
+                <input type="text" id="titleInput" class="form-input" placeholder="例: 実装テスト動画（未入力の場合はファイル名になります）">
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-primary" id="btnGenerate">
+                    <i class="fa-solid fa-link"></i> URLを作成する
+                </button>
+            </div>
+
+            <!-- プレビュー枠（ローカルファイル選択時） -->
+            <div class="preview-container" id="previewContainer">
+                <div style="font-weight: bold; font-size: 0.9rem; margin-bottom: 8px; color: #475569;">手元ファイル プレビュー確認:</div>
+                <video id="localPreview" controls playsinline></video>
+            </div>
+
+            <!-- 生成結果枠 -->
+            <div class="result-box" id="resultBox">
+                <div style="font-weight: bold; font-size: 0.9rem; margin-bottom: 8px; color: #047857;">
+                    <i class="fa-solid fa-check-circle"></i> 生成された共有用URL:
+                </div>
+                <div class="result-url" id="resultUrl"></div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary" id="btnCopy">
+                        <i class="fa-regular fa-copy"></i> URLをコピー
+                    </button>
+                    <a href="#" target="_blank" class="btn btn-secondary" id="btnOpen">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> ページを開いて確認
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 手順ガイド -->
+        <div class="card">
+            <h2 style="margin-top:0; font-size:1.15rem; border-left: 4px solid var(--accent-color); padding-left: 10px;">相手に見せるまでの3ステップ</h2>
+            <ol class="step-list">
+                <li>共有したい動画ファイルを <code>videos/</code> フォルダの中に保存します。（例: <code>videos/sample.mp4</code>）</li>
+                <li>ターミナルやGitHub Desktopでコミット＆プッシュします。<br>
+                    <code>git add videos/</code> → <code>git commit -m "Add video"</code> → <code>git push</code>
+                </li>
+                <li>このツールで生成したURLを、見せたい相手にチャット（DiscordやDM等）で送るだけで完了です！</li>
+            </ol>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="color: var(--sub-text); text-decoration: none; font-size: 0.85rem;">← トップページに戻る</a>
+        </div>
+    </div>
+
+    <div class="copy-toast" id="copyToast">URLをクリップボードにコピーしました！</div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const filePicker = document.getElementById('filePicker');
+        const fileNameInput = document.getElementById('fileNameInput');
+        const titleInput = document.getElementById('titleInput');
+        const btnGenerate = document.getElementById('btnGenerate');
+        const resultBox = document.getElementById('resultBox');
+        const resultUrl = document.getElementById('resultUrl');
+        const btnCopy = document.getElementById('btnCopy');
+        const btnOpen = document.getElementById('btnOpen');
+        const copyToast = document.getElementById('copyToast');
+        const previewContainer = document.getElementById('previewContainer');
+        const localPreview = document.getElementById('localPreview');
+
+        // ベースURL（現在のホストとパスから生成）
+        function getBaseUrl() {
+            const loc = window.location;
+            const pathSegments = loc.pathname.split('/');
+            pathSegments.pop(); // video-share.html を削除
+            const dirPath = pathSegments.join('/');
+            return loc.origin + (dirPath ? dirPath : '') + '/video.html';
+        }
+
+        // URL生成
+        function generateUrl() {
+            let filename = fileNameInput.value.trim();
+            if (!filename) {
+                alert('動画ファイル名を入力してください。');
+                fileNameInput.focus();
+                return;
+            }
+
+            // 先頭の videos/ は削除して正規化
+            if (filename.startsWith('videos/')) {
+                filename = filename.replace(/^videos\//, '');
+            }
+
+            let fullUrl = getBaseUrl() + '?v=' + encodeURIComponent(filename);
+
+            const title = titleInput.value.trim();
+            if (title) {
+                fullUrl += '&t=' + encodeURIComponent(title);
+            }
+
+            resultUrl.textContent = fullUrl;
+            btnOpen.href = fullUrl;
+            resultBox.style.display = 'block';
+
+            return fullUrl;
+        }
+
+        btnGenerate.addEventListener('click', generateUrl);
+
+        // コピー機能
+        btnCopy.addEventListener('click', function() {
+            const textToCopy = resultUrl.textContent;
+            if (!textToCopy) return;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast('URLをクリップボードにコピーしました！');
+            }).catch(() => {
+                // フォールバック
+                const input = document.createElement('input');
+                input.value = textToCopy;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('URLをクリップボードにコピーしました！');
+            });
+        });
+
+        function showToast(msg) {
+            copyToast.textContent = msg;
+            copyToast.style.display = 'block';
+            setTimeout(() => {
+                copyToast.style.display = 'none';
+            }, 2500);
+        }
+
+        // ドラッグ＆ドロップ対応
+        dropZone.addEventListener('click', () => filePicker.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        filePicker.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            fileNameInput.value = file.name;
+            if (!titleInput.value) {
+                titleInput.value = file.name.replace(/\.[^/.]+$/, "");
+            }
+
+            // ローカルプレビュー
+            if (file.type.startsWith('video/')) {
+                const objectUrl = URL.createObjectURL(file);
+                localPreview.src = objectUrl;
+                previewContainer.style.display = 'block';
+            }
+
+            generateUrl();
+        }
+
+        // 入力欄でEnter押下時
+        fileNameInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') generateUrl();
+        });
+        titleInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') generateUrl();
+        });
+    </script>
+</body>
+</html>

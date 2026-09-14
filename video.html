@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Viewer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" href="images/valley_icon.png" type="image/x-icon">
+    <style>
+        .video-page-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .video-container {
+            background-color: #0b0f19;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 240px;
+        }
+
+        video {
+            width: 100%;
+            max-height: 75vh;
+            display: block;
+            background: #000;
+            outline: none;
+        }
+
+        .video-meta {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-top: 16px;
+        }
+
+        .video-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            color: var(--text-color);
+            word-break: break-word;
+        }
+
+        .video-subinfo {
+            font-size: 0.9rem;
+            color: var(--sub-text);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .video-empty-state {
+            padding: 60px 20px;
+            text-align: center;
+            color: #ccc;
+        }
+
+        .video-empty-state i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            color: #64748b;
+        }
+
+        .video-empty-state p {
+            margin: 8px 0;
+            font-size: 1rem;
+        }
+
+        .video-footer-link {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .video-footer-link a {
+            color: var(--sub-text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .video-footer-link a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-page-wrapper">
+        <div class="video-container">
+            <div class="video-wrapper" id="videoWrapper">
+                <video id="videoPlayer" controls playsinline preload="metadata">
+                    ブラウザが動画再生に対応していません。
+                </video>
+                <div class="video-empty-state" id="emptyState" style="display: none;">
+                    <i class="fa-solid fa-film"></i>
+                    <p id="emptyMessage">動画が指定されていないか、読み込めませんでした。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-meta" id="videoMeta" style="display: none;">
+            <h1 class="video-title" id="videoTitleDisplay">動画</h1>
+            <div class="video-subinfo">
+                <span id="videoSourceDisplay"><i class="fa-regular fa-file-video"></i> <span id="fileName"></span></span>
+            </div>
+        </div>
+
+        <div class="video-footer-link">
+            <a href="index.html">Valley's Site Home</a>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const videoParam = urlParams.get('v');
+            const titleParam = urlParams.get('t');
+
+            const player = document.getElementById('videoPlayer');
+            const emptyState = document.getElementById('emptyState');
+            const emptyMessage = document.getElementById('emptyMessage');
+            const videoMeta = document.getElementById('videoMeta');
+            const videoTitleDisplay = document.getElementById('videoTitleDisplay');
+            const fileNameDisplay = document.getElementById('fileName');
+
+            if (!videoParam) {
+                player.style.display = 'none';
+                emptyState.style.display = 'block';
+                emptyMessage.textContent = '動画パラメータ (?v=...) が指定されていません。';
+                document.title = '動画が見つかりません';
+                return;
+            }
+
+            // 動画URLの判定（外部URLか相対パスか）
+            let videoSrc = videoParam;
+            if (!videoParam.startsWith('http://') && !videoParam.startsWith('https://') && !videoParam.startsWith('/')) {
+                // 相対パスの場合は videos/ ディレクトリから探す
+                videoSrc = 'videos/' + videoParam;
+            }
+
+            // タイトルの設定
+            let displayTitle = titleParam;
+            if (!displayTitle) {
+                const parts = videoParam.split('/');
+                const baseName = parts[parts.length - 1];
+                displayTitle = decodeURIComponent(baseName.replace(/\.[^/.]+$/, ""));
+            }
+
+            document.title = displayTitle + " | Valley";
+            videoTitleDisplay.textContent = displayTitle;
+            fileNameDisplay.textContent = videoParam;
+            videoMeta.style.display = 'block';
+
+            player.src = videoSrc;
+
+            player.onerror = function() {
+                player.style.display = 'none';
+                emptyState.style.display = 'block';
+                emptyMessage.innerHTML = '動画ファイルを読み込めませんでした。<br><small style="color:#94a3b8;">(' + videoSrc + ')</small>';
+            };
+
+            player.onloadedmetadata = function() {
+                player.style.display = 'block';
+                emptyState.style.display = 'none';
+            };
+        })();
+    </script>
+</body>
+</html>
