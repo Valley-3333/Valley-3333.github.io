@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 | Valley</title>
+    <meta name="description" content="Valleyが制作した同人誌やHoI4のMod、ツールなどを紹介する作品集です。">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/valley_icon.png" type="image/png">
+</head>
+<body>
+    <div class="wrapper book-page">
+        <header class="book-header">
+            <nav class="site-nav" aria-label="サイトメニュー">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="works.html" aria-current="page">Works</a></li>
+                    <li><a href="other.html">Other</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="links.html">Links</a></li>
+                    <li><a href="chat.html">Chat</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+            </nav>
+            <p class="book-eyebrow">Valley / WORKS</p>
+            <h1>作品集</h1>
+            <p>同人誌やMod、ツールなど、これまでに作ったものをまとめています。</p>
+            <nav class="book-nav" aria-label="作品の種類">
+                <a href="#books">同人誌</a>
+                <a href="#mods">HoI4 Mod</a>
+                <a href="#tools">ツール</a>
+                <a href="gallery.html">絵はGalleryへ →</a>
+            </nav>
+        </header>
+        <main>
+            <!-- 作品を追加するときは work-card を複製し、見出し・説明・リンクを変更します。 -->
+            <section id="books" aria-labelledby="books-title">
+                <h2 id="books-title">同人誌</h2>
+                <article class="work-card">
+                    <p class="work-category">BOOK / 頒布情報準備中</p>
+                    <h3>Hearts of Iron IV Mod制作 入門 vol.1</h3>
+                    <p>環境構築から国家方針・国民精神・イベントの作成まで。実例で学び、手を動かす、Mod制作の入門書です。</p>
+                    <a href="hoi4-book.html">本の紹介・お問い合わせ・正誤表 →</a>
+                </article>
+            </section>
+            <section id="mods" aria-labelledby="mods-title">
+                <h2 id="mods-title">HoI4 Mod</h2>
+                <p>制作・参加しているModを紹介します。</p>
+                <div class="works-list">
+                    <article class="work-card">
+                        <p class="work-category">MOD</p>
+                        <h3>バカ世界地図MOD</h3>
+                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2926389173">Steam Workshop →</a>
+                    </article>
+                    <article class="work-card">
+                        <p class="work-category">MOD</p>
+                        <h3>しちかいよう 非公式MOD</h3>
+                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3245829154">Steam Workshop →</a>
+                    </article>
+                    <article class="work-card">
+                        <p class="work-category">MOD</p>
+                        <h3>もんどすGUI Mod</h3>
+                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3224767397">Steam Workshop →</a>
+                    </article>
+                    <article class="work-card">
+                        <p class="work-category">MOD</p>
+                        <h3>HoI4デュアルリーダー（BBA対応）</h3>
+                        <p>既存のModをフォークして改修した派生作品です。</p>
+                        <a href="https://github.com/Valley-3333/hoi4dualleaders_bba">GitHub →</a>
+                    </article>
+                    <article class="work-card">
+                        <p class="work-category">MOD</p>
+                        <h3>ゴッドフィールドMOD</h3>
+                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3307764527">Steam Workshop →</a>
+                    </article>
+                </div>
+            </section>
+            <section id="tools" aria-labelledby="tools-title">
+                <h2 id="tools-title">ツール</h2>
+                <article class="work-card">
+                    <p class="work-category">TOOL / Python</p>
+                    <h3>HoI4 もんどすカーソル変更ツール</h3>
+                    <p>HoI4のマウスカーソルを「もんど☆すとらの」の二次創作カーソルに変更するツールです。カーソルの切り替え、元データのバックアップ、元の状態への復元ができます。</p>
+                    <p>カーソル素材：<a href="https://x.com/glassbottlerl">硝子瓶様</a><br>原作「もんど☆すとらの」：<a href="https://www.youtube.com/@tamagomanju">tamagomanju様</a></p>
+                    <p>ゲーム本体のカーソルファイルを書き換えるため、利用前にリンク先の説明と注意事項をご確認ください。</p>
+                    <a href="https://github.com/Valley-3333/hoi4_mnds_cursor_changer">使い方・ダウンロード（GitHub） →</a>
+                </article>
+            </section>
+            <a href="index.html">← Homeに戻る</a>
+        </main>
+        <footer><p>&copy; Valley</p></footer>
+    </div>
+</body>
+</html>

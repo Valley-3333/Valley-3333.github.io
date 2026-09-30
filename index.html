@@ -24,8 +24,10 @@
                 <nav class="site-nav">
                     <ul>
                         <li><a href="index.html">Home</a></li>
+                        <li><a href="works.html">Works</a></li>
                         <li><a href="other.html">Other</a></li>
                         <li><a href="blog.html">Blog</a></li>
+                        <li><a href="chat.html">Chat</a></li>
                         <li><a href="links.html">Links</a></li>
                         <li><a href="gallery.html">Gallery</a></li>
                     </ul>
@@ -46,6 +48,28 @@
         </header>
 
         <main>
+            <!-- 宣伝バナー：掲載しない間は section に hidden を付けてください。 -->
+            <section class="promo-banner" aria-labelledby="promo-title">
+                <!-- 表紙ができたら、この div を <img class="promo-cover" src="images/表紙のファイル名.jpg" alt="作品タイトルの表紙"> に置き換えます。 -->
+                <div class="promo-cover promo-cover-placeholder" aria-hidden="true">
+                    <span>Valley / BOOK</span>
+                    <strong>HoI4<br>Mod制作<br>入門 vol.1</strong>
+                    <span>表紙準備中</span>
+                </div>
+                <div class="promo-content">
+                    <p class="promo-label">同人誌のお知らせ <span>準備中</span></p>
+                    <h2 id="promo-title">Hearts of Iron IV<br>Mod制作 入門 vol.1</h2>
+                    <p class="promo-description">HoI4内にコンテンツを、作ってみよう。<br>環境構築から国家方針・国民精神・イベントの作成・理解を通じて公開まで。<br>実例で学び、手を動かす、Mod制作の入門書です。</p>
+                    <div class="promo-actions">
+                        <a class="promo-link" href="hoi4-book.html">本の紹介・お問い合わせ・正誤表 <span aria-hidden="true">→</span></a>
+                        <!-- PDF販売開始時に実際の販売URLを href に設定し、aria-disabled="true" を削除してください。「（準備中）」も削除します。 -->
+                        <a class="promo-link" role="link" aria-disabled="true">販売リンク(PDF)はこちら（準備中）</a>
+                        <!-- 配布開始時に実際のURLを href に設定し、aria-disabled="true" を削除してください。「（準備中）」も削除します。 -->
+                        <a class="promo-link" role="link" aria-disabled="true">紙面版購入者向け 配布リンク（準備中）</a>
+                    </div>
+                </div>
+            </section>
+
             <section class="bio-section">
                 <h2>About</h2>
                 <p>
@@ -54,6 +78,15 @@
                     なにか楽しそうなことを見つけたら、やるべき事をほっぽりだして、楽しくやりたいなと思っています。<br>
                 </p>
             </section>
+
+            <a class="works-banner" href="works.html">
+                <span class="works-banner-mark" aria-hidden="true">W<span>WORKS</span></span>
+                <span class="works-banner-copy">
+                    <strong>Works / 作品集</strong>
+                    <span>同人誌・HoI4 Mod・ツールなど、これまでに作ったもの。</span>
+                    <span class="works-banner-action">作品を見る →</span>
+                </span>
+            </a>
 
             <section class="skills-section">
                 <h2> Skills & Languages</h2>
@@ -112,6 +145,7 @@
                                 <span class="tag tag-main">VS Code</span>
                                 <span class="tag tag-main">Git / GitHub</span>
                                 <span class="tag tag-main">Gemini</span>
+                                <span class="tag tag-main">ChatGPT</span>
                             </div>
                         </div>
 
@@ -127,65 +161,12 @@
                         </div>
                     </div>
                 </div>
-            </section>
-
-            <section class="github-activity">
-                <h2>HoI4 Mod Projects</h2>
-                <ul class="mod-list">
-                    <li class="mod-item">
-                        <span class="mod-info">
-                            <a href="https://github.com/BSM-HOI4/HOI4-Bakasekaitizu-MOD" target="_blank" class="github-link">Bakasekaitizu MOD</a> 
-                            <span class="mod-desc">- バカ世界地図MOD</span>
-                        </span>
-                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2926389173" target="_blank" class="btn-steam-small">
-                            <i class="fab fa-steam"></i> Steam Workshop
-                        </a>
-                    </li>
-
-                    <li class="mod-item">
-                        <span class="mod-info">
-                            <a href="https://github.com/Valley-3333/7seacountry.mod-unofficial" target="_blank" class="github-link">7seacountry.mod-unofficial</a> 
-                            <span class="mod-desc">- しちかいよう 非公式MOD</span>
-                        </span>
-                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3245829154" target="_blank" class="btn-steam-small">
-                            <i class="fab fa-steam"></i> Steam Workshop
-                        </a>
-                    </li>
-
-                    <li class="mod-item">
-                        <span class="mod-info">
-                            <span class="mod-title">hoi4-IL-MONDO-STRANO-unofficial</span>
-                            <span class="mod-desc">- もんどすGUI Mod</span>
-                        </span>
-                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3224767397" target="_blank" class="btn-steam-small">
-                            <i class="fab fa-steam"></i> Steam Workshop
-                        </a>
-                    </li>
-                    <li class="mod-item">
-                        <span class="mod-info">
-                            <a href="https://github.com/Valley-3333/hoi4dualleaders_bba" target="_blank" class="github-link">hoi4dualleaders_bba</a>
-                            <span class="mod-desc">- Hoi4デュアルリーダー(BBA対応)</span>
-                        </span>
-                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3245829154" target="_blank" class="btn-steam-small">
-                            <i class="fab fa-steam"></i> 他のModのみに最新版対応をのっけてしまってます(泣)
-                        </a>
-                    </li>
-                    <li class="mod-item">
-                        <span class="mod-info">
-                            God Field.mod
-                            <span class="mod-desc">- ゴッドフィールドMOD</span>
-                        </span>
-                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3307764527" target="_blank" class="btn-steam-small">
-                            <i class="fab fa-steam"></i> Steam Workshop
-                        </a>
-                    </li>
-                </ul>
-
                 <p>公開しているリポジトリや開発履歴は、GitHubからご確認いただけます。</p>
                 <div class="btn-container">
                     <a href="https://github.com/Valley-3333?tab=repositories" class="btn">View Repositories</a>
                 </div>
             </section>
+
             <section class="github-analytics-section">
                 <h2>GitHub Analytics</h2>
                 <div class="analytics-grid">

@@ -23,6 +23,143 @@ body {
     padding: 60px 20px;
 }
 
+/* --- Homeの作品紹介バナー --- */
+.promo-banner {
+    display: grid;
+    grid-template-columns: 130px minmax(0, 1fr);
+    align-items: center;
+    gap: 30px;
+    padding: 30px;
+    border: 1px solid #dce3ec;
+    border-radius: 12px;
+    background: linear-gradient(120deg, #edf2f8, #fafbfc);
+}
+
+.promo-banner[hidden] { display: none; }
+
+.promo-cover {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    border-radius: 2px 5px 5px 2px;
+    box-shadow: 5px 8px 18px #1a365d20;
+}
+
+.promo-cover-placeholder {
+    aspect-ratio: 5 / 7;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    border-left: 5px solid #102846;
+    background: var(--accent-color);
+    color: white;
+}
+
+.promo-cover-placeholder span { font-size: 0.6rem; letter-spacing: 0.08em; }
+.promo-cover-placeholder strong { font-size: 1.25rem; line-height: 1.6; }
+.promo-content { min-width: 0; overflow-wrap: anywhere; }
+.promo-banner .promo-label {
+    margin: 0 0 10px;
+    color: var(--accent-color);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+.promo-label span {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 8px;
+    border: 1px solid #c8d3e1;
+    border-radius: 20px;
+    font-weight: 500;
+}
+.promo-banner h2 {
+    margin: 0 0 10px;
+    padding: 0;
+    border: 0;
+    color: var(--accent-color);
+    font-size: clamp(1.3rem, 4vw, 1.7rem);
+    line-height: 1.5;
+}
+.promo-banner .promo-description { margin: 0 0 16px; font-size: 0.85rem; }
+.promo-status { color: var(--sub-text); font-size: 0.75rem; }
+.promo-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+.promo-link {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 5px;
+    background: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+.promo-link:hover { background: #284e7f; }
+.promo-link[aria-disabled="true"] { background: #e3e8ef; color: #526174; cursor: default; }
+.promo-link:focus-visible { outline: 3px solid var(--accent-color); outline-offset: 4px; }
+.promo-link span { margin-left: 12px; }
+
+@media (max-width: 480px) {
+    .promo-banner { grid-template-columns: 85px minmax(0, 1fr); gap: 16px; padding: 20px 16px; }
+    .promo-cover-placeholder { padding: 10px; }
+    .promo-cover-placeholder strong { font-size: 0.9rem; }
+    .promo-cover-placeholder span { font-size: 0.5rem; }
+}
+
+/* --- 作品集へのバナーと作品カード --- */
+.works-banner {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 60px;
+    padding: 30px;
+    border: 1px solid #dce3ec;
+    border-radius: 12px;
+    background: linear-gradient(120deg, #edf2f8, #fafbfc);
+    color: var(--accent-color);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+.works-banner:hover { background: #edf2f8; border-color: var(--accent-color); }
+.works-banner:focus-visible { outline: 3px solid var(--accent-color); outline-offset: 4px; }
+.works-banner-mark { flex: 0 0 72px; text-align: center; font-size: 3rem; font-weight: 700; line-height: 1.2; }
+.works-banner-mark span { display: block; font-size: 0.6rem; letter-spacing: 0.16em; margin-top: 8px; }
+.works-banner-copy { display: grid; gap: 6px; min-width: 0; font-size: 0.85rem; }
+.works-banner-copy strong { font-size: 1.5rem; }
+.works-banner-action { font-weight: 700; margin-top: 6px; text-decoration: underline; text-underline-offset: 4px; }
+.works-list { display: grid; gap: 16px; }
+.work-card { padding: 24px; border: 1px solid var(--border-color); border-radius: 10px; }
+.work-card h3 { margin: 0 0 12px; color: var(--accent-color); line-height: 1.6; }
+.work-card .work-category { margin: 0 0 8px; color: var(--sub-text); font-size: 0.75rem; letter-spacing: 0.05em; }
+.work-card p { font-size: 0.9rem; }
+@media (max-width: 480px) {
+    .works-banner { padding: 20px 16px; gap: 16px; }
+    .works-banner-mark { flex-basis: 48px; font-size: 2.5rem; }
+    .work-card { padding: 20px; }
+}
+
+/* --- 同人誌の紹介・サポートページ --- */
+.book-page { overflow-wrap: anywhere; }
+.book-header { margin-bottom: 48px; }
+.book-header h1 { font-size: clamp(1.5rem, 5vw, 2.2rem); letter-spacing: 0.02em; line-height: 1.5; }
+.book-eyebrow { color: var(--accent-color); font-size: 0.8rem; margin-top: 40px; }
+.book-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px; }
+.book-page a:not(.promo-link) { color: var(--accent-color); text-underline-offset: 4px; }
+.book-page a:focus-visible { outline: 3px solid var(--accent-color); outline-offset: 4px; }
+.book-page section { scroll-margin-top: 24px; }
+.book-note { padding: 20px; background: #f2f5f9; border-radius: 8px; }
+.book-table-scroll { overflow-x: auto; }
+.book-errata { width: 100%; min-width: 540px; border-collapse: collapse; font-size: 0.85rem; }
+.book-errata caption { text-align: left; margin-bottom: 12px; color: var(--sub-text); }
+.book-errata th, .book-errata td { padding: 14px; border: 1px solid var(--border-color); text-align: left; vertical-align: top; }
+.book-errata thead { background: #f2f5f9; }
+.book-errata code { white-space: pre-wrap; overflow-wrap: anywhere; }
+
 /* --- ヘッダー --- */
 header {
     text-align: center;
@@ -272,6 +409,7 @@ footer {
     list-style: none;
     padding: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
 }
@@ -287,7 +425,7 @@ footer {
     opacity: 0.7;
 }
 
-.site-nav a:hover, .site-nav a.active {
+.site-nav a:hover, .site-nav a.active, .site-nav a[aria-current="page"] {
     opacity: 1;
     border-bottom: 2px solid var(--accent-color);
 }
