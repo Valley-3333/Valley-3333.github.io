@@ -1160,3 +1160,16 @@ header {
         max-width: 100%;       /* スマホでは1列にする */
     }
 }
+
+/* キャプション付き写真の横並び */
+.blog-figure-row > .blog-figure {
+    flex: 0 1 300px;
+    min-width: 0;
+    margin: 0;
+}
+
+.blog-figure-row .blog-img {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 10px;
+}
