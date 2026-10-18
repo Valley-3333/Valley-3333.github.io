@@ -1,0 +1,26 @@
+# Local credentials. Public browser settings belong in gallery-comments-config.js.
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.template
+*.env
+.pgpass
+pgpass.conf
+*.pem
+*.key
+*.p12
+*.pfx
+/.private/
+/.secrets/
+/secrets/
+gallery-comments-secrets.local.*
+
+# Supabase CLI state may contain connection details.
+/supabase/.temp/
+/supabase/.branches/
+
+# Local dependencies and browser test artifacts.
+node_modules/
+playwright-report/
+test-results/
