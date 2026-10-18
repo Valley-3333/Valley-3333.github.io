@@ -540,6 +540,97 @@ header {
     line-height: 1.6;
 }
 
+/* --- 画像ごとの匿名コメント --- */
+.gallery-comment-intro { color: var(--sub-text); font-size: 0.85rem; }
+.gallery-open-comments {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    border: 0;
+    border-top: 1px solid var(--border-color);
+    background: #f7f9fc;
+    color: var(--accent-color);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.gallery-open-comments:hover { background: #eaf0f7; }
+.gallery-open-comments i { margin-right: 6px; }
+.gallery-open-comments:focus-visible,
+.gallery-comment-button:focus-visible,
+.gallery-comments-dialog textarea:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: -3px;
+}
+.gallery-comments-dialog {
+    box-sizing: border-box;
+    width: min(640px, calc(100% - 24px));
+    max-height: calc(100dvh - 32px);
+    padding: 24px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-color);
+    background: white;
+    font: inherit;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+.gallery-comments-dialog::backdrop { background: #10203899; }
+body:has(.gallery-comments-dialog[open]) { overflow: hidden; }
+.gallery-comments-heading,
+.gallery-comment-list-heading,
+.gallery-comment-form-meta,
+.gallery-comment-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.gallery-comments-heading h2 { margin: 0; padding: 0; border: 0; font-size: 1.15rem; }
+.gallery-comments-heading h2 { min-width: 0; overflow-wrap: anywhere; }
+.gallery-comment-button {
+    padding: 8px 14px;
+    border: 1px solid #ccd6e3;
+    border-radius: 6px;
+    background: white;
+    color: var(--accent-color);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.gallery-comment-button:hover { background: #edf2f8; }
+.gallery-comment-button:disabled { opacity: 0.55; cursor: default; }
+.gallery-comment-primary { background: var(--accent-color); color: white; }
+.gallery-comment-primary:hover { background: #284e7f; }
+.gallery-comment-artwork { margin: 24px 0; display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 16px; align-items: center; }
+.gallery-comment-artwork img { width: 100px; height: 100px; object-fit: contain; background: #f5f5f5; border-radius: 8px; }
+.gallery-comment-artwork figcaption { color: var(--sub-text); font-size: 0.85rem; overflow-wrap: anywhere; }
+.gallery-comment-note { color: var(--sub-text); font-size: 0.75rem; }
+.gallery-comments-dialog label { display: block; font-size: 0.9rem; margin-bottom: 8px; }
+.gallery-comments-dialog textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #b9c5d5;
+    border-radius: 6px;
+    font: inherit;
+    font-size: 1rem;
+    resize: vertical;
+}
+.gallery-comment-form-meta { margin-top: 4px; color: var(--sub-text); font-size: 0.7rem; flex-wrap: wrap; }
+#galleryCommentCaptcha:not(:empty) { margin: 16px 0; }
+.gallery-comment-status { color: var(--accent-color); font-size: 0.85rem; overflow-wrap: anywhere; }
+.gallery-comment-list-heading { margin-top: 28px; border-top: 1px solid var(--border-color); padding-top: 20px; }
+.gallery-comment-list-heading h3 { margin: 0; font-size: 1rem; }
+.gallery-comments-list { list-style: none; margin: 0 0 16px; padding: 0; }
+.gallery-comments-list li { padding: 16px 0; border-bottom: 1px solid var(--border-color); }
+.gallery-comment-meta { flex-wrap: wrap; font-size: 0.75rem; color: var(--sub-text); }
+.gallery-comment-meta strong { color: var(--accent-color); }
+.gallery-comments-list p { margin: 10px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.9rem; }
+.gallery-comments-dialog [hidden] { display: none; }
+@media (max-width: 420px) {
+    .gallery-comments-dialog { padding: 18px; }
+    .gallery-comment-artwork { grid-template-columns: 72px minmax(0, 1fr); gap: 12px; }
+    .gallery-comment-artwork img { width: 72px; height: 72px; }
+}
+
 /* スマホ対応：グリッドを調整 */
 @media (max-width: 600px) {
     .gallery-grid {

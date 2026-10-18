@@ -15,6 +15,8 @@
     <meta property="og:description" content="HoI4 ModderのValleyです。こんにちは。こんばんわ。">
     <meta property="og:image" content="images/valley_icon.png">
     <meta name="twitter:card" content="summary_large_image">
+    <script src="gallery-comments-config.js" defer></script>
+    <script src="gallery-comments.js" defer></script>
 </head>
 <body>
 
@@ -37,6 +39,7 @@
 
         <main>
             <h2>Gallery</h2>
+            <p class="gallery-comment-intro">それぞれの絵の「コメント」から、感想を残せます。</p>
             
             <div class="gallery-grid" id="galleryGrid">
                 <!-- ギャラリーアイテムはここに動的に生成されます -->
@@ -47,6 +50,38 @@
             <p>&copy; BC240 ... 1910, 1986, 2061 Valley. Verified Profile.</p>
         </footer>
     </div>
+
+    <dialog id="galleryCommentsDialog" class="gallery-comments-dialog" aria-labelledby="galleryCommentsTitle">
+        <div class="gallery-comments-heading">
+            <h2 id="galleryCommentsTitle">コメント</h2>
+            <button id="galleryCommentsClose" class="gallery-comment-button" type="button" autofocus>閉じる</button>
+        </div>
+        <figure class="gallery-comment-artwork">
+            <img id="galleryCommentsImage" alt="">
+            <figcaption id="galleryCommentsDescription"></figcaption>
+        </figure>
+        <p class="gallery-comment-note">アカウント登録不要・匿名で投稿できます。コメントはすぐに公開され、管理者が不適切な投稿を削除することがあります。</p>
+        <p id="galleryCommentsUnavailable" class="gallery-comment-note" hidden>コメントは現在準備中です。</p>
+        <form id="galleryCommentForm" hidden>
+            <label for="galleryCommentBody">この絵へのコメント</label>
+            <textarea id="galleryCommentBody" rows="4" required aria-describedby="galleryCommentHelp galleryCommentCount"></textarea>
+            <div class="gallery-comment-form-meta">
+                <span id="galleryCommentHelp">500文字まで・投稿は60秒に1回</span>
+                <span id="galleryCommentCount">0 / 500</span>
+            </div>
+            <p class="gallery-comment-note">投稿者には自動で匿名IDが付きます。投稿時に匿名認証情報をこのブラウザーに保存し、コメントをSupabaseへ送信します。氏名・メールアドレスなどの個人情報は書き込まないでください。</p>
+            <div id="galleryCommentCaptcha"></div>
+            <button id="galleryCommentSubmit" class="gallery-comment-button gallery-comment-primary" type="submit">匿名で投稿する</button>
+        </form>
+        <p id="galleryCommentStatus" class="gallery-comment-status" role="status" aria-live="polite"></p>
+        <div class="gallery-comment-list-heading">
+            <h3>みんなのコメント</h3>
+            <button id="galleryCommentsRefresh" class="gallery-comment-button" type="button" hidden>更新</button>
+        </div>
+        <p id="galleryCommentsReadStatus" class="gallery-comment-status" role="status" aria-live="polite"></p>
+        <ol id="galleryCommentsList" class="gallery-comments-list" aria-label="この絵のコメント"></ol>
+        <button id="galleryCommentsMore" class="gallery-comment-button" type="button" hidden>もっと見る</button>
+    </dialog>
 
     <script>
         // ギャラリーデータ
@@ -107,7 +142,7 @@
                     card.innerHTML = `
                         <div class="gallery-image-container">
                             <img src="${item.image}" alt="${item.title}" class="gallery-image">
-                            <button class="toggle-info-btn" onclick="toggleInfo(event, ${item.id})" title="説明を表示/非表示">
+                            <button class="toggle-info-btn" type="button" onclick="toggleInfo(event, ${item.id})" title="説明を表示/非表示" aria-label="${item.title}の説明" aria-controls="info-${item.id}" aria-expanded="false">
                                 <i class="fas fa-chevron-down"></i>
                             </button>
                         </div>
@@ -115,7 +150,13 @@
                             <h3>${item.title}</h3>
                             <p>${item.description}</p>
                         </div>
+                        <button class="gallery-open-comments" type="button" aria-label="${item.title}へのコメント" aria-haspopup="dialog">
+                            <i class="far fa-comment-dots" aria-hidden="true"></i> コメント
+                        </button>
                     `;
+                    card.querySelector('.gallery-open-comments').addEventListener('click', () => {
+                        window.dispatchEvent(new CustomEvent('gallery:comments', { detail: item }));
+                    });
                     colDiv.appendChild(card);
                 });
                 
@@ -153,6 +194,7 @@
                 const button = event.currentTarget;
                 if (button) {
                     button.classList.toggle('active');
+                    button.setAttribute('aria-expanded', String(infoElement.classList.contains('active')));
                 }
             }
         }
@@ -161,7 +203,14 @@
         document.addEventListener('DOMContentLoaded', initGallery);
         
         // ウィンドウリサイズ時に再初期化（列数が変わる場合）
-        window.addEventListener('resize', initGallery);
+        let currentColumnCount = getColumnCount();
+        window.addEventListener('resize', () => {
+            const nextColumnCount = getColumnCount();
+            if (nextColumnCount !== currentColumnCount) {
+                currentColumnCount = nextColumnCount;
+                initGallery();
+            }
+        });
     </script>
 </body>
 </html>
