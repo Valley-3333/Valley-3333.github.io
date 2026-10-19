@@ -56,7 +56,7 @@ function reply(status, cors = false, extra = {}) {
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
-        if (url.pathname !== '/collect' || url.search) return reply(404);
+        if (!['/collect', '/unique'].includes(url.pathname) || url.search) return reply(404);
         if (!['POST', 'OPTIONS'].includes(request.method)) return reply(405, false, { Allow: 'POST, OPTIONS' });
         if (request.headers.get('Origin') !== SITE_ORIGIN) return reply(403);
         if (request.method === 'OPTIONS') {
@@ -71,11 +71,19 @@ export default {
             if (!await permitBurst(address, now)) return reply(429, true, { 'Retry-After': '60' });
             // Location is supplied by Cloudflare, never trusted from headers or body.
             // Do not read the body: comments, user IDs, URLs and coordinates are unnecessary.
-            await env.REGION_DB.prepare(`
+            const day = toJstDay(now);
+            const statement = url.pathname === '/unique' ? `
+                INSERT INTO daily_unique_browsers (day_jst, prefecture, browsers) VALUES (?, ?, 1)
+                ON CONFLICT(day_jst, prefecture) DO UPDATE SET browsers = browsers + 1
+            ` : `
                 INSERT INTO daily_pageviews (day_jst, prefecture, views) VALUES (?, ?, 1)
                 ON CONFLICT(day_jst, prefecture) DO UPDATE SET views = views + 1
-            `).bind(toJstDay(now), getPrefecture(request.cf)).run();
-            return reply(204, true);
+            `;
+            await env.REGION_DB.prepare(statement).bind(day, getPrefecture(request.cf)).run();
+            return reply(204, true, {
+                'X-Region-Analytics-Day': day,
+                'Access-Control-Expose-Headers': 'X-Region-Analytics-Day',
+            });
         } catch {
             // Analytics failures never expose database details or block the website.
             return reply(503, true);
