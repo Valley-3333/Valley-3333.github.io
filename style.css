@@ -8,6 +8,9 @@
     --steam-color: #1b2838;  /* Steamのブランドカラー */
 }
 
+footer .site-analytics-note { margin-top: 8px; font-size: 0.7rem; color: var(--sub-text); }
+footer .site-analytics-note a { color: inherit; text-underline-offset: 3px; }
+
 body {
     margin: 0;
     padding: 0;
