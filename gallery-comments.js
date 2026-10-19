@@ -260,7 +260,24 @@
     refresh.addEventListener('click', () => { void loadComments(); });
     more.addEventListener('click', () => { void loadComments(true); });
     byId('galleryCommentsClose').addEventListener('click', () => dialog.close());
+    let backdropPressed = false;
+    function isOutsideDialog(event) {
+        const bounds = dialog.getBoundingClientRect();
+        return event.target === dialog && (
+            event.clientX < bounds.left || event.clientX >= bounds.right ||
+            event.clientY < bounds.top || event.clientY >= bounds.bottom
+        );
+    }
+    dialog.addEventListener('pointerdown', event => {
+        backdropPressed = event.button === 0 && isOutsideDialog(event);
+    });
+    dialog.addEventListener('click', event => {
+        // Both press and release must be outside; selecting text must not dismiss it.
+        if (backdropPressed && isOutsideDialog(event)) dialog.close();
+        backdropPressed = false;
+    });
     dialog.addEventListener('close', () => {
+        backdropPressed = false;
         if (activeItem) drafts.set(activeItem.id, body.value);
         activeItem = null;
         ++readVersion;
