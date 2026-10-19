@@ -1,0 +1,14 @@
+name = "valley-region-analytics"
+main = "worker.mjs"
+compatibility_date = "2026-10-19"
+workers_dev = true
+preview_urls = false
+
+[observability]
+enabled = true
+
+[[d1_databases]]
+binding = "REGION_DB"
+database_name = "valley-site-region-stats"
+# Public resource identifier, not an API token or database credential.
+database_id = "51220f44-7420-4e6d-93a8-1e218ecd52b2"

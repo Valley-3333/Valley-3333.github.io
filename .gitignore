@@ -1,6 +1,9 @@
 # Local credentials. Public browser settings belong in gallery-comments-config.js.
 .env
 .env.*
+.dev.vars
+.dev.vars.*
+.wrangler/
 !.env.example
 !.env.*.example
 !.env.template
