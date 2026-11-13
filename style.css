@@ -156,6 +156,8 @@ body {
 .book-page a:focus-visible { outline: 3px solid var(--accent-color); outline-offset: 4px; }
 .book-page section { scroll-margin-top: 24px; }
 .book-note { padding: 20px; background: #f2f5f9; border-radius: 8px; }
+.book-preview-help { color: var(--sub-text); font-size: 0.85rem; }
+.book-preview { display: block; box-sizing: border-box; width: 100%; height: clamp(400px, 80vh, 900px); border: 1px solid var(--border-color); border-radius: 8px; background: #f2f5f9; }
 .book-table-scroll { overflow-x: auto; }
 .book-errata { width: 100%; min-width: 540px; border-collapse: collapse; font-size: 0.85rem; }
 .book-errata caption { text-align: left; margin-bottom: 12px; color: var(--sub-text); }
